@@ -20,7 +20,9 @@ api_key = get_api_key()
 if not api_key:
     raise ValueError("GROQ_API_KEY not found in secrets or environment")
 
-client = Groq(api_key=api_key)def classify_and_reply(subject, body, sender="unknown"):
+client = Groq(api_key=api_key)
+
+def classify_and_reply(subject, body, sender="unknown"):
     prompt = f"""You are an email triage assistant. Analyze this email and return ONLY a JSON object with these exact keys:
 - "category": one of [urgent, follow_up, info, spam]
 - "priority": integer 1-5 (5 = most urgent)
