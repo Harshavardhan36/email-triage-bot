@@ -6,8 +6,13 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+try:
+    import streamlit as st
+    api_key = st.secrets["GROQ_API_KEY"]
+except Exception:
+    api_key = os.environ.get("GROQ_API_KEY")
 
+client = Groq(api_key=api_key)
 def classify_and_reply(subject, body, sender="unknown"):
     prompt = f"""You are an email triage assistant. Analyze this email and return ONLY a JSON object with these exact keys:
 - "category": one of [urgent, follow_up, info, spam]
