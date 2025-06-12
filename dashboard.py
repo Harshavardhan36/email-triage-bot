@@ -310,11 +310,4 @@ with col_result:
             </div>
         </div>
         """, unsafe_allow_html=True)
-
-# Footer
 st.markdown("<div style='margin-top: 3rem'></div>", unsafe_allow_html=True)
-st.markdown("""
-<div style="text-align: center; color: #94a3b8; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; border-top: 1px solid #e2e8f0; padding-top: 1rem;">
-    Email Triage System &nbsp;|&nbsp; Sri Harshavardhan Pulluru &nbsp;|&nbsp; Built with Python and Streamlit
-</div>
-""", unsafe_allow_html=True)
