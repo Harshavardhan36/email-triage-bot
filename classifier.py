@@ -6,14 +6,21 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-try:
-    import streamlit as st
-    api_key = st.secrets["GROQ_API_KEY"]
-except Exception:
-    api_key = os.environ.get("GROQ_API_KEY")
+def get_api_key():
+    try:
+        import streamlit as st
+        key = st.secrets.get("GROQ_API_KEY", None)
+        if key:
+            return key
+    except Exception:
+        pass
+    return os.environ.get("GROQ_API_KEY")
 
-client = Groq(api_key=api_key)
-def classify_and_reply(subject, body, sender="unknown"):
+api_key = get_api_key()
+if not api_key:
+    raise ValueError("GROQ_API_KEY not found in secrets or environment")
+
+client = Groq(api_key=api_key)def classify_and_reply(subject, body, sender="unknown"):
     prompt = f"""You are an email triage assistant. Analyze this email and return ONLY a JSON object with these exact keys:
 - "category": one of [urgent, follow_up, info, spam]
 - "priority": integer 1-5 (5 = most urgent)
